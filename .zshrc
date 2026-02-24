@@ -78,7 +78,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete fzf)
+# plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete fzf)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting fzf)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -113,3 +114,63 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Tab completion behavior
+# # Make Tab first insert the longest common substring/prefix
+# zstyle ':autocomplete:*complete*:*' insert-unambiguous yes
+# # If you specifically want the longest common *prefix* instead of *substring*, 
+# # add this line too:
+# zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
+# # same behavior for history search (up/down arrow) 
+# zstyle ':autocomplete:*history*:*' insert-unambiguous yes
+# # and menu search (Ctrl+S), you can add:
+# zstyle ':autocomplete:menu-search:*' insert-unambiguous yes
+
+# bindkey '^I' menu-select
+# bindkey "$terminfo[kcbt]" menu-select
+# Make Tab and Shift+Tab cycle through the menu items once the menu is open
+# bindkey -M menuselect '^I' menu-complete
+# bindkey -M menuselect "$terminfo[kcbt]" reverse-menu-complete
+
+# ───────────────────────────────────────────────────────────────
+# Fine-tune zsh-autocomplete + zsh completion menu behavior
+# Goal: more bash-like → Tab shows list, type to filter, arrows/Tab/Enter to pick
+# ───────────────────────────────────────────────────────────────
+
+# 1. Prevent zsh-autocomplete from immediately inserting the top match on Tab
+#    (default is quite aggressive → we want to stay "list first")
+# zstyle ':autocomplete:*' insert-unambiguous    false
+# zstyle ':autocomplete:tab:*' insert-unambiguous false
+#
+# # 2. Make Tab open the menu instead of inserting (very important for your workflow)
+# zstyle ':autocomplete:tab:*' widget-style menu-select
+#
+# # 3. Let the classic zsh menu use arrow keys, Tab = next, Shift-Tab = previous
+# zstyle ':completion:*' menu select
+#
+# # Optional but recommended tweaks:
+# # - Case-insensitive matching (very common desire)
+# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+#
+# # - Don't auto-insert first match even without plugin (defensive)
+# unsetopt menu_complete
+# unsetopt auto_menu
+# setopt bash_auto_list           # first Tab → list (if ambiguous)
+#
+# # - Usually nice: go to end of word after completion
+# setopt always_to_end
+
+
+# 1. Tab vervollständigt nur bis zum gemeinsamen Teil (kein "Auto-Insert" der 1. Option)
+setopt no_automenu
+setopt list_ambiguous
+
+# 2. Menü-Auswahl mit Pfeiltasten aktivieren
+zstyle ':completion:*' menu select
+
+# 3. Ermöglicht das Weitertippen, während das Menü offen ist
+# (Das Menü aktualisiert sich automatisch)
+setopt interactive_comments 
+
+# 4. Case-insensitive Completion (optional, aber sehr hilfreich)
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
