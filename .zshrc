@@ -177,3 +177,9 @@ setopt interactive_comments
 
 # 4. Case-insensitive Completion (optional, aber sehr hilfreich)
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+# Arrow key bindings for completion menu
+bindkey -M menuselect '^[[A' up-line-or-history
+bindkey -M menuselect '^[[B' down-line-or-history
+bindkey -M menuselect '^[[C' forward-char
+bindkey -M menuselect '^[[D' backward-char
