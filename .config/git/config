@@ -1,0 +1,10 @@
+[user]
+	email = nsn@nightspawn.com
+	name = Michael Bayuer
+
+
+[includeIf "gitdir:~/devel/privat/**"]
+    path = ~/.config/git/privat.inc
+
+[includeIf "gitdir:~/devel/enbw/**"]
+    path = ~/.config/git/enbw.inc
