@@ -2,9 +2,8 @@
 	email = nsn@nightspawn.com
 	name = Michael Bayuer
 
-
-[includeIf "gitdir:~/devel/privat/**"]
-    path = ~/.config/git/privat.inc
+[core]
+    sshCommand = ssh -F /dev/null -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes
 
 [includeIf "gitdir:~/devel/enbw/**"]
     path = ~/.config/git/enbw.inc
