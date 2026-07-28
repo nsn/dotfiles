@@ -6,5 +6,5 @@ background-opacity = 0.95
 #theme = Monokai Vivid
 theme = iTerm2 Dark Background
 font-thicken = true
-
+shell-integration-features = ssh-terminfo,ssh-env
 
