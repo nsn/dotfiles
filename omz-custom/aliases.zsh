@@ -5,4 +5,3 @@ alias vim='nvim'
 alias vi='nvim'
 alias n='nvim'
 
-alias opencode='AWS_PROFILE=bedrock opencode'
